@@ -8,6 +8,6 @@ COPY [ "Pipfile.lock", "./"]
 
 RUN pipenv install --system --deploy
 
-COPY [ingest_data.py, ingest_data.py]
+COPY ["ingest_data.py", "ingest_data.py"]
 
 ENTRYPOINT [ "python", "ingest_data.py" ]

@@ -1,9 +1,20 @@
 setup:
 	pipenv install --dev
 
-ingestion:
-	pipenv run python ingest_data.py \
-  	--user=root \
+start_db:
+	docker-compose up -d
+
+end_db:
+	docker-compose down
+
+build:
+	docker build . -t ingest_data_nyt
+
+ingestion: build
+	docker run -it \
+  	--network="container:01dockersql_pgdatabase_1" \
+	ingest_data_nyt \
+	--user=root \
   	--password=root \
   	--host=localhost \
   	--port=5432 \
